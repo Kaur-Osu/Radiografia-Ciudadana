@@ -1,0 +1,38 @@
+CÓMO EJECUTAR EL PROYECTO EN WINDOWS
+
+En este equipo las dependencias y las credenciales ya están configuradas.
+Abre PowerShell y deja abiertas las terminales del backend y del frontend.
+
+1. BASE DE DATOS
+   cd C:\radiografia-ciudadana-main
+   .\iniciar_bd.bat
+
+   El script inicia MySQL80 si está detenido. Si la base está vacía,
+   carga los datos oficiales del respaldo; si ya está lista, la conserva.
+   Si Windows pide permisos para iniciar MySQL, usa una terminal como administrador.
+
+2. BACKEND (en otra terminal)
+   cd C:\radiografia-ciudadana-main\backend
+   .\.venv\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8000
+
+3. FRONTEND (en otra terminal)
+   cd C:\radiografia-ciudadana-main\frontend
+   npm run dev
+
+4. ABRE EN EL NAVEGADOR
+   http://localhost:5173
+   Para detener backend o frontend: Ctrl+C en su terminal.
+
+PRIMERA VEZ EN OTRO EQUIPO (solo una vez)
+Requiere MySQL 8, Python 3.13 y Node.js 22.12 o posterior.
+Desde la carpeta del proyecto:
+   cd backend
+   python -m venv .venv
+   .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+   copy .env.example .env
+Edita backend\.env y escribe tu usuario y contraseña de MySQL.
+Luego instala el frontend:
+   cd ..\frontend
+   npm ci
+Después sigue los pasos 1, 2 y 3. Si usas otra ruta, cambiala en los comandos.
+Si tu servicio no se llama MySQL80: .\iniciar_bd.bat NombreDelServicio

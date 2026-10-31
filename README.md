@@ -1,5 +1,7 @@
 # Radiografía de Participación Ciudadana
 
+Inicio rápido en Windows: [instructivo breve](COMO-EJECUTAR.txt). Ejecuta iniciar_bd.bat desde la raíz para iniciar MySQL y preparar una base nueva sin reemplazar una base ya poblada.
+
 Proyecto escolar para el Hackathon 2026. Aplicación de consulta de la participación electoral en México con fuentes del INE: elecciones federales de **2018, 2021 y 2024**.
 
 ## Funciones
