@@ -1,3 +1,5 @@
+> Para el VPS compartido de utportfolio.cloud, seguir [VPS.md](VPS.md) y usar compose.vps.yaml. Esa configuración evita el puerto 8080 ocupado y crea una base aislada.
+
 # Despliegue posterior en VPS
 
 Esta carpeta prepara el despliegue; no se ha realizado todavía. Docker no está instalado en el equipo donde se verificó el proyecto, por lo que la configuración se debe validar en el servidor antes de publicar.

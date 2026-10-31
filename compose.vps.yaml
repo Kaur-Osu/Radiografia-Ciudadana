@@ -1,0 +1,65 @@
+services:
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    mem_limit: 1g
+    cpus: 1.0
+    environment:
+      MYSQL_DATABASE: radiografia_ciudadana
+      MYSQL_USER: radiografia
+      MYSQL_PASSWORD: ${DB_PASSWORD:?Falta DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Falta MYSQL_ROOT_PASSWORD}
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/snapshot_radiografia_ciudadana.sql:/docker-entrypoint-initdb.d/01-snapshot.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "MYSQL_PWD=\"$$MYSQL_PASSWORD\" mysql --protocol=TCP -h 127.0.0.1 -u radiografia radiografia_ciudadana -e 'SELECT 1' >/dev/null 2>&1"]
+      interval: 10s
+      timeout: 5s
+      start_period: 60s
+      retries: 30
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    restart: unless-stopped
+    mem_limit: 768m
+    cpus: 1.0
+    environment:
+      DB_HOST: db
+      DB_USER: radiografia
+      DB_PASSWORD: ${DB_PASSWORD:?Falta DB_PASSWORD}
+      DB_NAME: radiografia_ciudadana
+      SECRET_KEY: ${SECRET_KEY:?Falta SECRET_KEY}
+      DATA_PATH: /data
+      DEBUG: "false"
+      ENVIRONMENT: production
+      CORS_ORIGINS: '["https://radiografiaciudadana.utportfolio.cloud"]'
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=4)"]
+      interval: 10s
+      timeout: 5s
+      start_period: 20s
+      retries: 12
+  web:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    restart: unless-stopped
+    mem_limit: 128m
+    cpus: 0.5
+    ports:
+      - "127.0.0.1:18081:80"
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+volumes:
+  mysql_data:
