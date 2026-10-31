@@ -62,6 +62,7 @@ test('stale profile request cannot replace the latest selection',async({page})=>
   await page.locator('select').nth(1).selectOption('9');
   await expect(page.getByText('Diagnóstico Cívico: CIUDAD DE MÉXICO')).toBeVisible();
   release();
+  await page.unrouteAll({ behavior: 'wait' });
   await expect(page.getByText('Diagnóstico Cívico: AGUASCALIENTES')).toHaveCount(0);
 });
 
