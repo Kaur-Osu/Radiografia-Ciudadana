@@ -29,12 +29,12 @@ export function ProfileRadarChart({ indicadores }: ProfileRadarChartProps) {
 
   const radarData = [
     {
-      indicador: 'Participación Actual', original: participacionActual, unidad: '%',
+      indicador: 'Participación', original: participacionActual, unidad: '%',
       valor: Math.min(participacionActual, 100),
       full: 100,
     },
     {
-      indicador: 'Referencia Nacional', original: participacionReferencia, unidad: '%',
+      indicador: 'Media nac.', original: participacionReferencia, unidad: '%',
       valor: Math.min(participacionReferencia, 100),
       full: 100,
     },
@@ -44,7 +44,7 @@ export function ProfileRadarChart({ indicadores }: ProfileRadarChartProps) {
       full: 100,
     },
     {
-      indicador: 'Variación ×10', original: indicadores.variacion_pp, unidad: 'pp',
+      indicador: 'Cambio ×10', original: indicadores.variacion_pp, unidad: 'pp',
       valor: Math.min(variacionHistorica * 10, 100),
       full: 100,
     },
@@ -55,17 +55,18 @@ export function ProfileRadarChart({ indicadores }: ProfileRadarChartProps) {
       <ResponsiveContainer width="100%" height="100%">
         <RadarChart
           data={radarData}
+          outerRadius="60%"
           margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
         >
-          <PolarGrid stroke="#e2e8f0" />
-          <PolarAngleAxis dataKey="indicador" tick={{ fontSize: 11, fill: 'var(--chart-text)' }} />
+          <PolarGrid stroke="var(--chart-grid)" />
+          <PolarAngleAxis dataKey="indicador" tick={{ fontSize: 10, fill: 'var(--chart-text)' }} />
           <PolarRadiusAxis
             domain={[0, 100]}
             tick={{ fontSize: 10, fill: 'var(--chart-text)' }}
             tickFormatter={(val) => String(val)}
           />
           <Tooltip formatter={(_value, _name, item) => item.payload?.original == null ? 'Sin referencia anterior' : `${Number(item.payload.original).toFixed(2)} ${item.payload.unidad}`} contentStyle={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '8px' }} />
-          <Radar isAnimationActive={false} dataKey="valor" stroke="#2563eb" fill="#2563eb" fillOpacity={0.6} />
+          <Radar isAnimationActive={false} dataKey="valor" stroke="var(--chart-primary)" fill="var(--chart-primary)" fillOpacity={0.6} />
         </RadarChart>
       </ResponsiveContainer>
       <p className="text-xs text-slate-500 dark:text-slate-400">Las diferencias se muestran en magnitud absoluta ×10 (máximo 100). Al señalar un punto se muestra el valor real con su signo y unidad.</p>

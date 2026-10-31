@@ -1,12 +1,9 @@
+import { Card } from '@/components/common/Card';
+import { PageHeader } from '@/components/common/PageHeader';
 export function Methodology() {
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-slate-100">Fuentes y Metodología</h1>
-        <p className="text-gray-600 dark:text-slate-300">
-          Conoce el origen de la información y comprende cómo se generaron los resultados.
-        </p>
-      </div>
+      <PageHeader title="Fuentes y Metodología" description="Conoce de dónde vienen los datos, cómo se calculan los indicadores y cuáles son sus alcances." eyebrow="DATOS ABIERTOS, REGLAS CLARAS" />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="space-y-6">
@@ -103,20 +100,6 @@ export function Methodology() {
           </Card>
         </div>
       </div>
-    </div>
-  );
-}
-
-function Card({ children, title }: { children: React.ReactNode; title?: string }) {
-  return (
-    <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6 dark:bg-slate-900 dark:border-slate-700">
-      {title && (
-        <h3 className="text-sm font-semibold text-gray-900 mb-4 flex items-center gap-2 dark:text-slate-100">
-          <span className="w-2 h-2 rounded-full bg-blue-600"></span>
-          {title}
-        </h3>
-      )}
-      {children}
     </div>
   );
 }

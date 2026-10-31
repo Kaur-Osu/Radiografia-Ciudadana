@@ -11,8 +11,8 @@ test('routes, themes, comparison, charts and territory selection', async ({ page
   await page.screenshot({ path: 'test-results/home-light.png', fullPage: true });
   await page.getByRole('button', { name: 'Alternar tema claro/oscuro' }).click();
   await expect(page.locator('html')).toHaveClass('dark');
-  await expect(page.locator('main')).toHaveCSS('color','rgb(226, 232, 240)');
-  await expect(page.locator('nav')).toHaveCSS('background-color','oklch(0.208 0.042 265.755)');
+  await expect(page.locator('main')).toHaveCSS('color','rgb(243, 237, 242)');
+  await expect(page.locator('nav')).toHaveCSS('background-color','rgb(36, 31, 39)');
   await page.screenshot({ path: 'test-results/home-dark.png', fullPage: true });
   await page.reload();
   await expect(page.locator('html')).toHaveClass('dark');

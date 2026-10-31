@@ -28,7 +28,7 @@ export function ParticipationLineChart({ data }: ParticipationLineChartProps) {
     <div className="h-72 w-full">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={data} margin={{ top: 20, right: 30, bottom: 20, left: 10 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" vertical={false} />
           <XAxis
             dataKey="anio"
             type="number"
@@ -54,10 +54,10 @@ export function ParticipationLineChart({ data }: ParticipationLineChartProps) {
             name="Participación Nacional (%)"
             type="monotone"
             dataKey="participacion_pct"
-            stroke="#2563eb"
+            stroke="var(--chart-primary)"
             strokeWidth={3}
-            dot={{ fill: '#2563eb', strokeWidth: 2, stroke: '#ffffff', r: 5 }}
-            activeDot={{ r: 7, fill: '#1d4ed8', stroke: '#ffffff', strokeWidth: 3 }}
+            dot={{ fill: 'var(--chart-primary)', strokeWidth: 2, stroke: '#ffffff', r: 5 }}
+            activeDot={{ r: 7, fill: 'var(--chart-primary)', stroke: '#ffffff', strokeWidth: 3 }}
           />
         </LineChart>
       </ResponsiveContainer>

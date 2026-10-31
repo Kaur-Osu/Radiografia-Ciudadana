@@ -95,3 +95,11 @@ Este comando se ejecuta desde una terminal compatible con redirección de entrad
 El respaldo usa la base `radiografia_ciudadana`. Debe restaurarse únicamente en una instalación nueva o en una base cuyo reemplazo se haya decidido expresamente: el archivo generado por MySQL recrea sus tablas. No combines la restauración con el seed sobre la misma base poblada.
 
 Los CSV originales se descargan mediante `python -m app.scripts.download_data` desde `backend/`; sus enlaces y hashes están versionados en `data/fuentes-manifest.json`.
+
+## Interfaz visual
+
+La interfaz se inspira en la presentación del portal del INE y su página de Conteos Censales: tipografía Poppins, acentos magenta y morado, superficies claras y un tema oscuro equivalente. Se reorganizaron las cinco pantallas y se incorporaron transiciones suaves con soporte de movimiento reducido.
+
+El rediseño aprobó 68 pruebas de navegador en Chrome y otras 68 en Edge. Consulta las [referencias y decisiones de diseño](docs/DISENO-INTERFAZ.md).
+
+![Vista previa de la aplicación](docs/imagenes/inicio.png)

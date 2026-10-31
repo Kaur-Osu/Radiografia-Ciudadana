@@ -14,15 +14,21 @@ interface Props {
 }
 
 function color(value?: number | null) {
-  return value == null ? '#94a3b8' : value >= 80 ? '#16a34a' : value >= 60 ? '#2563eb' : value >= 40 ? '#ca8a04' : value >= 20 ? '#f97316' : '#ef4444';
+  return value == null ? '#b6b0b8' : value >= 80 ? '#592878' : value >= 60 ? '#a72b7d' : value >= 40 ? '#d66eab' : value >= 20 ? '#edb0d2' : '#f6deed';
 }
 
 function FitMexico({ geojson }: { geojson: FeatureCollection }) {
   const map = useMap();
   useEffect(() => {
     const bounds = L.geoJSON(geojson).getBounds();
-    if (bounds.isValid()) map.fitBounds(bounds, { padding: [12, 12] });
-    map.invalidateSize();
+    const fit = () => {
+      map.invalidateSize({ pan: false });
+      if (bounds.isValid()) map.fitBounds(bounds, { padding: [14, 14], animate: false });
+    };
+    fit();
+    const observer = new ResizeObserver(fit);
+    observer.observe(map.getContainer());
+    return () => observer.disconnect();
   }, [map, geojson]);
   return null;
 }
@@ -54,18 +60,18 @@ export function MexicoChoropleth({ data, title = 'Participación por entidad fed
     if (indicator && onSelect) layer.on('click', () => onSelect(indicator));
   };
   return (
-    <section className="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700">
-      <div className="p-3 bg-white dark:bg-slate-900"><h3 className="font-semibold text-sm">{title}</h3><p className="text-xs text-slate-500 dark:text-slate-400">{data.length} entidades · Datos del INE</p></div>
-      <div className="relative h-[420px] bg-slate-100 dark:bg-slate-800">
+    <section aria-label={title} className="map-shell">
+      <div className="map-toolbar"><span><i className="status-dot" />{data.length} entidades federativas</span><span>Fuente: INE</span></div>
+      <div className="map-canvas">
         {error ? <p role="alert" className="p-4 text-red-700 dark:text-red-300">Error cargando el mapa: {error}</p> : !geojson ? <p className="p-4">Cargando geometrías…</p> : (
-          <MapContainer center={[23.6, -102.5]} zoom={5} className="h-full w-full" scrollWheelZoom={false} attributionControl={false}>
+          <MapContainer center={[23.6, -102.5]} zoom={5} zoomSnap={0.25} zoomDelta={0.5} className="h-full w-full" scrollWheelZoom={false} attributionControl={false}>
             <FitMexico geojson={geojson} />
             <AttributionControl position="bottomright" prefix='<a href="https://www.inegi.org.mx/servicios/catalogounico.html">INEGI · Marco Geoestadístico</a>' />
-            <GeoJSON key={JSON.stringify(data)} data={geojson as GeoJsonObject} style={feature => ({ fillColor: color(getIndicator(feature)?.participacion_pct), fillOpacity: 0.8, color: '#334155', weight: 1 })} onEachFeature={onEachFeature} />
+            <GeoJSON key={JSON.stringify(data)} data={geojson as GeoJsonObject} style={feature => ({ fillColor: color(getIndicator(feature)?.participacion_pct), fillOpacity: 0.8, color: 'var(--map-stroke)', weight: 1 })} onEachFeature={onEachFeature} />
           </MapContainer>
         )}
       </div>
-      <div className="flex flex-wrap gap-3 p-3 bg-white dark:bg-slate-900 text-xs" aria-label="Leyenda del mapa">
+      <div className="map-legend" aria-label="Leyenda del mapa">
         {[[0, 'Menos de 20 %'], [20, '20–39.99 %'], [40, '40–59.99 %'], [60, '60–79.99 %'], [80, '80–100 %'], [null, 'Sin datos']].map(([value, label]) => <span key={label} className="flex items-center gap-1"><span className="inline-block w-3 h-3 rounded" style={{ background: color(value as number | null) }} />{label}</span>)}
       </div>
     </section>

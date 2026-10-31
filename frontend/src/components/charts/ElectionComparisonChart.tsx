@@ -10,7 +10,7 @@ import {
 } from 'recharts';
 import type { ComparacionHistorica } from '@/types';
 
-const COLORS = ['#94a3b8', '#2563eb'];
+const COLORS = ['#ad86bf', '#b50074'];
 
 interface ElectionComparisonChartProps {
   data: ComparacionHistorica;
@@ -35,7 +35,7 @@ export function ElectionComparisonChart({ data }: ElectionComparisonChartProps) 
     <div className="h-64 w-full">
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={chartData} margin={{ top: 20, right: 30, bottom: 40, left: 0 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" vertical={false} />
           <XAxis dataKey="eleccion" axisLine={false} tick={{ fontSize: 13, fill: 'var(--chart-text)', fontWeight: 600 }} />
           <YAxis
             tick={{ fontSize: 12, fill: 'var(--chart-text)' }}

@@ -10,7 +10,7 @@ import {
 } from 'recharts';
 import type { IndicadorTerritorio } from '@/types';
 
-const COLORS = ['#2563eb', '#3b82f6', '#60a5fa', '#93c5fd', '#bfdbfe'];
+const COLORS = ['#b50074', '#b94491', '#cf6eaf', '#86519e', '#ad86bf'];
 
 interface EntityRankingChartProps {
   data: IndicadorTerritorio[];
@@ -33,10 +33,10 @@ export function EntityRankingChart({ data, limit = 10 }: EntityRankingChartProps
     .slice(0, limit);
 
   return (
-    <div className="w-full overflow-y-auto" style={{ maxHeight: 520 }}><div style={{ height: Math.max(300, sortedData.length * 34 + 50), minWidth: 260 }}>
+    <div className="w-full overflow-y-auto" style={{ maxHeight: 520 }}><div style={{ height: Math.max(300, sortedData.length * 34 + 50), minWidth: 220 }}>
       <ResponsiveContainer width="100%" height="100%">
         <BarChart layout="vertical" data={sortedData} margin={{ top: 20, right: 30, bottom: 40, left: 0 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" horizontal={false} />
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" horizontal={false} />
           <XAxis dataKey="participacion_pct" type="number" axisLine={false} domain={[0, 100]} tickFormatter={value => `${value}%`} tick={{ fontSize: 10, fill: 'var(--chart-text)' }} />
           <YAxis
             dataKey="territorio_nombre"

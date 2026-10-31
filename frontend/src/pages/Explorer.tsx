@@ -1,3 +1,4 @@
+import { PageHeader } from '@/components/common/PageHeader';
 import { Modal } from '@/components/common/Modal';
 import { errorMessage } from '@/services/errors';
 import type { Eleccion, IndicadorTerritorio } from '@/types';
@@ -51,16 +52,9 @@ export function Explorer() {
 
   return (
     <div className='space-y-8 pb-12'>
-      <div className='flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm transition-colors'>
-        <div>
-          <h1 className='text-2xl font-bold text-slate-900 dark:text-white'>Explorador Territorial</h1>
-          <p className='text-sm text-slate-600 dark:text-slate-400 mt-1'>
-            Explora geográficamente las diferencias de participación electoral y ausencia de marca de voto entre las 32 entidades federativas.
-          </p>
-        </div>
-        <div className='flex flex-col sm:flex-row items-start sm:items-center gap-3 min-w-0'>
-          <label className='text-sm font-semibold text-slate-700 dark:text-slate-300'>Elección:</label>
-          <select aria-label="Elección"
+      <PageHeader title="Explorador Territorial" description="Cada territorio cuenta una historia. Consulta la participación de las 32 entidades y abre su ficha para conocer los detalles." eyebrow="LA PARTICIPACIÓN, EN EL MAPA">
+        <label className="field-label">Elección</label>
+        <select aria-label="Elección"
             className='border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-600 outline-none'
             value={String(eleccionSeleccionada ?? '')}
             onChange={(e) => selectElection(Number(e.target.value))}
@@ -71,8 +65,7 @@ export function Explorer() {
               </option>
             ))}
           </select>
-        </div>
-      </div>
+      </PageHeader>
 
       {error && (
         <div className='p-4 bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-red-900 rounded-lg text-red-700 dark:text-red-300 text-sm'>

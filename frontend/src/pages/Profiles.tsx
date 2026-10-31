@@ -1,3 +1,4 @@
+import { PageHeader } from '@/components/common/PageHeader';
 import { errorMessage } from '@/services/errors';
 import type { Eleccion, Perfil, PerfilTerritorioOut } from '@/types';
 import { territoriesService } from '@/services/territories';
@@ -77,16 +78,9 @@ export function Profiles() {
     <div className='space-y-8 pb-12'>
       {error && <p role='alert' className='text-red-700 dark:text-red-300'>{error}</p>}
       {loading && <Spinner />}
-      <div className='flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm transition-colors'>
-        <div>
-          <h1 className='text-2xl font-bold text-slate-900 dark:text-white'>Perfiles Descriptivos de Participación</h1>
-          <p className='text-sm text-slate-600 dark:text-slate-400 mt-1'>
-            Identificación y caracterización estadística de patrones territoriales mediante reglas transparentes.
-          </p>
-        </div>
-        <div className='flex flex-col sm:flex-row items-start sm:items-center gap-3 min-w-0'>
-          <label className='text-sm font-semibold text-slate-700 dark:text-slate-300'>Elección de Referencia:</label>
-          <select aria-label="Elección de referencia"
+      <PageHeader title="Perfiles Descriptivos de Participación" description="Reconoce patrones de participación con indicadores comparables y reglas de clasificación transparentes." eyebrow="LECTURAS CON CONTEXTO">
+        <label className="field-label">Elección de referencia</label>
+        <select aria-label="Elección de referencia"
             className='border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-600 outline-none'
             value={String(eleccionSeleccionada ?? '')}
             onChange={(e) => selectElection(Number(e.target.value))}
@@ -97,8 +91,7 @@ export function Profiles() {
               </option>
             ))}
           </select>
-        </div>
-      </div>
+      </PageHeader>
 
       <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
         <div className='lg:col-span-2 space-y-6'>

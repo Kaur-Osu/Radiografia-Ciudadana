@@ -1,3 +1,4 @@
+import { PageHeader } from '@/components/common/PageHeader';
 import { territoriesService } from '@/services/territories';
 import { errorMessage } from '@/services/errors';
 import type { Eleccion } from '@/types';
@@ -54,15 +55,10 @@ export function Comparator() {
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-slate-100">Comparador Histórico</h1>
-        <p className="text-gray-600 dark:text-slate-300">
-          Compara la participación electoral entre dos elecciones y observa la variación en puntos porcentuales.
-        </p>
-      </div>
+      <PageHeader title="Comparador Histórico" description="Dos elecciones, una perspectiva más amplia. Compara la participación nacional o elige una entidad para observar sus cambios." eyebrow="OBSERVAR EL CAMBIO" />
 
       <Card title="Seleccionar Elecciones">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="analysis-filters grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-slate-300">Elección Inicial</label>
             <select aria-label="Elección inicial"
@@ -104,7 +100,7 @@ export function Comparator() {
             <button
               onClick={handleComparar}
               disabled={loading || !eleccionInicial || !eleccionFinal || eleccionInicial === eleccionFinal}
-              className="w-full bg-blue-600 text-white py-2.5 rounded-lg font-medium disabled:opacity-50 hover:bg-blue-700 transition-colors"
+              className="primary-button w-full"
             >
               Comparar
             </button>
