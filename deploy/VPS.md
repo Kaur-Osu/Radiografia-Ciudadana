@@ -24,3 +24,15 @@ docker compose --project-name radiografia-ciudadana --env-file .env.vps -f compo
 No compartir `.env.vps` ni la salida completa de `docker compose config`: contienen claves. Usar `config --quiet` para validar sin mostrarlas. Guardar una copia privada de `.env.vps` y respaldar la base antes de futuras actualizaciones. No ejecutar `docker compose down -v`, limpiezas globales de Docker ni importar SQL en la base MySQL del servidor.
 
 La configuracion se revisa localmente, pero la construccion Docker y el arranque deben verificarse en el VPS antes de considerarlos validados.
+
+## Activacion de HTTPS
+
+Despues de emitir el certificado con Certbot webroot para este dominio, ejecutar:
+
+```bash
+bash deploy/activar-https.sh
+```
+
+Comprueba el certificado, el enlace habilitado, que el archivo no incluya otros dominios y la salud de la aplicacion. Guarda una copia privada del archivo del sitio en `/var/backups/radiografia-ciudadana/https.XXXXXXXX/site.conf`, valida Nginx y lo recarga gradualmente. Si falla la activacion, restaura solo este archivo. No reinicia Docker ni modifica otros sitios. La comprobacion HTTPS posterior puede reintentarse si falla sin eliminar la instalacion.
+
+El hook `radiografia-ciudadana.sh` solo recarga Nginx cuando Certbot renueva el certificado de Radiografia. No modifica el calendario de renovacion existente ni actua al renovar otros certificados. La recarga permite servir el certificado actualizado sin reiniciar Nginx.
