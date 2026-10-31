@@ -1,0 +1,63 @@
+# =============================================================================
+# Radiografía de Participación Ciudadana — .gitignore (raíz del proyecto)
+# =============================================================================
+
+# --- Entornos de ejecución ---
+.env
+.env.local
+.env.*.local
+venv/
+.venv/
+env/
+ENV/
+
+# --- Dependencias ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# --- Builds ---
+dist/
+build/
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+
+# --- IDE y OS ---
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# --- Datos oficiales del INE (NO subir a Git; pesan varios GB) ---
+data/**/*.csv
+data/**/*.txt
+data/*.csv
+data/*.txt
+
+# --- Base de datos y backups ---
+*.sql.bak
+*.dump
+*.sql.gz
+
+# --- Logs ---
+*.log
+logs/
+
+# --- Documentación temporal ---
+~$*
+# Generated verification artifacts
+**/test-results/
+**/playwright-report/
+**/.pytest_cache/
+**/.venv/
+data/.downloads/
+
+# Configuración privada y archivos de datos descargados
+.env.*
+!.env.example
+data/**/*.zip

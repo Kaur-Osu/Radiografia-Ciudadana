@@ -1,0 +1,25 @@
+{
+  "backend_passed": 244,
+  "browser_production_passed": {
+    "chrome": 65,
+    "edge": 65
+  },
+  "http_load": {
+    "requests": 1000,
+    "concurrency": 20,
+    "errors": 0,
+    "elapsed_seconds": 12.116,
+    "p50_seconds": 0.169,
+    "p95_seconds": 0.612,
+    "max_seconds": 1.586
+  },
+  "official_records": 28455354,
+  "sql_restore": {
+    "restored": true,
+    "totals": 96,
+    "geometries": 32,
+    "temporary_database_removed": true
+  },
+  "firefox": "No ejecutado: Windows no pudo iniciar Firefox; falta el ensamblado mozglue en su instalación. No corresponde a un fallo de la aplicación.",
+  "vps_deployed": false
+}

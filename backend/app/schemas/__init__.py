@@ -1,0 +1,1 @@
+# Schemas Pydantic para la API de Radiografía de Participación Ciudadana

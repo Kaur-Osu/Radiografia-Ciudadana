@@ -1,0 +1,17 @@
+{
+  "2018": {
+    "url": "https://www.ine.mx/wp-content/uploads/2022/04/DatosAbiertos_DECEyEC_ConteosCensales2018.zip",
+    "sha256": "b20981a0aea1ac773e7bc0b54784bba7619346585ba3996744ad22458279dd8b",
+    "fecha_descarga": "2026-10-30"
+  },
+  "2021": {
+    "url": "https://www.ine.mx/wp-content/uploads/2022/04/DatosAbiertos_DECEyEC_ConteosCensales2021.zip",
+    "sha256": "29bdfaaa33be5151c2ae8c8e406d8a27976006d11e6cbe201ac05cc04def4849",
+    "fecha_descarga": "2026-10-30"
+  },
+  "2024": {
+    "url": "https://www.ine.mx/wp-content/uploads/2025/08/DatosAbiertos_DECEyEC_ConteosCensales2024.zip",
+    "sha256": "c0de34d04e782ad99579b83591a6e3e6c8d1e20f4914d4845743bd79d2bd28b2",
+    "fecha_descarga": "2026-10-30"
+  }
+}

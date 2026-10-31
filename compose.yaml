@@ -1,0 +1,53 @@
+services:
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: radiografia_ciudadana
+      MYSQL_USER: radiografia
+      MYSQL_PASSWORD: ${DB_PASSWORD:?Configura DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Configura MYSQL_ROOT_PASSWORD}
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/schema_radiografia_participacion_ciudadana.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./database/seed_radiografia_participacion_ciudadana.sql:/docker-entrypoint-initdb.d/02-seed.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    restart: unless-stopped
+    environment:
+      DB_HOST: db
+      DB_USER: radiografia
+      DB_PASSWORD: ${DB_PASSWORD:?Configura DB_PASSWORD}
+      DB_NAME: radiografia_ciudadana
+      DATA_PATH: /data
+      DEBUG: "false"
+      ENVIRONMENT: production
+    volumes:
+      - ./data:/data:ro
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+  web:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    restart: unless-stopped
+    ports:
+      - "${HTTP_PORT:-8080}:80"
+    depends_on:
+      api:
+        condition: service_healthy
+volumes:
+  mysql_data:
